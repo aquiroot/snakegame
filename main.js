@@ -20,6 +20,7 @@ const direction = {
 
 let keyPress;
 const intervalo = 80;
+// TODO: Cambiar speed segun dificultad elegida
 const speed = 10;
 
 const controls = {
@@ -37,6 +38,7 @@ document.onkeydown = (ev) => {
 	}
 };
 
+// Dibujar objetos
 const draw = (color) => {
 	boardCtx.clearRect(0, 0, 600, 600);
 	boardCtx.fillStyle = 'green';
@@ -56,6 +58,10 @@ const start = () => {
 	setTimeout(start, intervalo);
 };
 
+/**
+ * Inicia el juego al cargar la patalla
+ *  TODO: iniciar con boton start
+ */
 window.onload = () => {
 	start();
 };
