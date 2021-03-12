@@ -19,6 +19,7 @@ body {
 
 .canvas {
 	display: flex;
+	justify-content: center;
 }
 
 .controls {
@@ -30,9 +31,7 @@ body {
 	width: 100px;
 }
 
-#game__board {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+.game__board {
+	border: solid 4px darkorange;
+	background: darkblue;
 }
