@@ -18,19 +18,24 @@ const direction = {
 	ArrowLeft: [-1, 0],
 };
 
-let keyPress;
-const intervalo = 80;
+const boardWidth = 600;
+
 // TODO: Cambiar speed segun dificultad elegida
 const speed = 10;
+
+let keyPress;
+const intervalo = 80;
 
 const controls = {
 	direction: { x: 1 * speed, y: 0 },
 	serpiente: [{ x: 300, y: 300 }],
+	alimento: { x: 30, y: 250 },
+	start: false,
 };
 
 // Obtener pulsaciones de teclas
 document.onkeydown = (ev) => {
-	keyPress = direction[ev.key];
+	let keyPress = direction[ev.key];
 	const [x, y] = keyPress;
 	if (-x !== controls.direction.x && -y !== controls.direction.y) {
 		controls.direction.x = x * speed;
@@ -44,7 +49,6 @@ const draw = (color) => {
 	boardCtx.fillStyle = 'green';
 	const head = controls.serpiente[0];
 	boardCtx.fillRect(head.x, head.y, 10, 10);
-	console.log(head);
 };
 
 // funcion start
@@ -58,10 +62,35 @@ const start = () => {
 	setTimeout(start, intervalo);
 };
 
+const randomPosition = () => {
+	let d = Object.values(direction);
+	return {
+		x: parseInt(Math.random() * boardWidth) / speed,
+		y: parseInt(Math.random() * boardWidth) / speed,
+		d: d[parseInt(Math.random() * 11)],
+	};
+};
+
 /**
  * Inicia el juego al cargar la patalla
  *  TODO: iniciar con boton start
  */
 window.onload = () => {
+	ctaStart();
+};
+
+const ctaStart = () => {
+	let position = randomPosition();
+	let head = controls.serpiente[0];
+	head.x = position.x;
+	head.y = position.y;
+	controls.direction.x = position.d[0] * speed;
+	controls.direction.y = position.d[1] * speed;
 	start();
 };
+
+const button = document.querySelector('button');
+
+button.addEventListener('click', () => {
+	ctaStart();
+});
