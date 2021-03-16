@@ -18,7 +18,9 @@ const direction = {
 	ArrowLeft: [-1, 0],
 };
 
+// Variables del tablero
 const boardWidth = 636;
+const boardHeight = 368;
 
 // TODO: Cambiar speed segun dificultad elegida
 const speed = 10;
@@ -28,8 +30,8 @@ const intervalo = 80;
 
 const controls = {
 	direction: { x: 1, y: 0 },
-	serpiente: [{ x: 315, y: 184 }],
-	alimento: { x: 30, y: 250 },
+	serpiente: [{ x: 318, y: 184 }],
+	alimento: { x: 100, y: 100 },
 	start: false,
 };
 
@@ -44,11 +46,17 @@ document.onkeydown = (ev) => {
 };
 
 // Dibujar objetos
-const draw = (color) => {
+const draw = () => {
 	boardCtx.clearRect(0, 0, 636, 368);
-	boardCtx.fillStyle = '#18181a';
 	const head = controls.serpiente[0];
-	boardCtx.fillRect(head.x, head.y, 10, 10);
+	const alimento = controls.alimento;
+	drawFigures('#18181a', head.x, head.y);
+	drawFigures('red', alimento.x, alimento.y);
+};
+
+const drawFigures = (color, x, y) => {
+	boardCtx.fillStyle = color;
+	boardCtx.fillRect(x, y, 10, 10);
 };
 
 // funcion start
@@ -66,7 +74,7 @@ const randomPosition = () => {
 	let d = Object.values(direction);
 	return {
 		x: parseInt(Math.random() * boardWidth) / speed,
-		y: parseInt(Math.random() * boardWidth) / speed,
+		y: parseInt(Math.random() * boardHeight) / speed,
 		d: d[parseInt(Math.random() * 11)],
 	};
 };
@@ -77,10 +85,13 @@ const randomPosition = () => {
  */
 window.onload = () => {
 	let position = randomPosition();
+	let alimentoPosition = randomPosition();
 	let head = controls.serpiente[0];
 	head.x = position.x;
 	head.y = position.y;
 	controls.direction.x = position.d[0] * speed;
 	controls.direction.y = position.d[1] * speed;
+	controls.alimento.x = alimentoPosition.x;
+	controls.alimento.y = alimentoPosition.y;
 	start();
 };
