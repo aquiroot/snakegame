@@ -1,37 +1,44 @@
+:root {
+	--color-retro: black;
+	--color-board-background: #a1b469;
+	--color-background: #0b0e0d;
+}
+
 body {
-	background-color: dimgrey;
+	background-color: var(--color-background);
 	height: 100vh;
 	width: 100vw;
 	margin: 0;
+	background-image: url("./img/nokia.webp");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .navBar {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
 
 .title {
 	font-family: 'Roboto', sans-serif;
-	font-size: 3rem;
-	color: darkorange;
+	color: var(--color-board-background);
+}
+
+h4 {
+	font-family: 'Roboto', sans-serif;
+	color: var(--color-board-background);
 }
 
 .canvas {
 	display: flex;
 	justify-content: center;
-}
-
-.controls {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 600px;
-	width: 100px;
+	margin-top: 370px;
+	margin-left: 106px;
 }
 
 .game__board {
-	border: solid 4px darkorange;
-	background: darkblue;
+	border: solid 4px var(--color-retro);
+	
 }

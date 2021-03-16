@@ -18,7 +18,7 @@ const direction = {
 	ArrowLeft: [-1, 0],
 };
 
-const boardWidth = 600;
+const boardWidth = 650;
 
 // TODO: Cambiar speed segun dificultad elegida
 const speed = 10;
@@ -45,8 +45,8 @@ document.onkeydown = (ev) => {
 
 // Dibujar objetos
 const draw = (color) => {
-	boardCtx.clearRect(0, 0, 600, 600);
-	boardCtx.fillStyle = 'green';
+	boardCtx.clearRect(0, 0, 650, 400);
+	boardCtx.fillStyle = '#18181a';
 	const head = controls.serpiente[0];
 	boardCtx.fillRect(head.x, head.y, 10, 10);
 };
