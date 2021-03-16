@@ -18,7 +18,7 @@ const direction = {
 	ArrowLeft: [-1, 0],
 };
 
-const boardWidth = 650;
+const boardWidth = 636;
 
 // TODO: Cambiar speed segun dificultad elegida
 const speed = 10;
@@ -27,8 +27,8 @@ let keyPress;
 const intervalo = 80;
 
 const controls = {
-	direction: { x: 1 * speed, y: 0 },
-	serpiente: [{ x: 300, y: 300 }],
+	direction: { x: 1, y: 0 },
+	serpiente: [{ x: 315, y: 184 }],
 	alimento: { x: 30, y: 250 },
 	start: false,
 };
@@ -45,7 +45,7 @@ document.onkeydown = (ev) => {
 
 // Dibujar objetos
 const draw = (color) => {
-	boardCtx.clearRect(0, 0, 650, 400);
+	boardCtx.clearRect(0, 0, 636, 368);
 	boardCtx.fillStyle = '#18181a';
 	const head = controls.serpiente[0];
 	boardCtx.fillRect(head.x, head.y, 10, 10);
@@ -76,10 +76,6 @@ const randomPosition = () => {
  *  TODO: iniciar con boton start
  */
 window.onload = () => {
-	ctaStart();
-};
-
-const ctaStart = () => {
 	let position = randomPosition();
 	let head = controls.serpiente[0];
 	head.x = position.x;
@@ -88,9 +84,3 @@ const ctaStart = () => {
 	controls.direction.y = position.d[1] * speed;
 	start();
 };
-
-const button = document.querySelector('button');
-
-button.addEventListener('click', () => {
-	ctaStart();
-});
