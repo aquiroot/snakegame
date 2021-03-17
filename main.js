@@ -73,15 +73,15 @@ const start = () => {
 const randomPosition = () => {
 	let d = Object.values(direction);
 	return {
-		x: parseInt(Math.random() * boardWidth) / speed,
-		y: parseInt(Math.random() * boardHeight) / speed,
+		x: parseInt(Math.random() * boardWidth),
+		y: parseInt(Math.random() * boardHeight),
 		d: d[parseInt(Math.random() * 11)],
 	};
 };
 
 /**
  * Inicia el juego al cargar la patalla
- *  TODO: iniciar con boton start
+ *  TODO: iniciar con un boton start que coincida con un boton del nokia
  */
 window.onload = () => {
 	let position = randomPosition();

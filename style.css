@@ -6,39 +6,20 @@
 
 body {
 	background-color: var(--color-background);
-	height: 100vh;
-	width: 100vw;
+	height: auto;
+	width: auto;
 	margin: 0;
 	background-image: url("./img/nokia.webp");
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: center top ;
 	background-attachment: fixed;
-}
-
-.navBar {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
-
-.title {
-	font-family: 'Roboto', sans-serif;
-	color: var(--color-board-background);
-	margin-left: 107px;
-}
-
-h4 {
-	font-family: 'Roboto', sans-serif;
-	color: var(--color-board-background);
-	margin-left: 107px;
 }
 
 .canvas {
 	display: flex;
 	justify-content: center;
-	margin-top: 369px;
-	margin-left: 107px;
+	margin-top: 388px;
+	margin-left: 100px;
 }
 
 /**
