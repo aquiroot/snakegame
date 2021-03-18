@@ -16,20 +16,38 @@ body {
 	background-repeat: no-repeat;
 	background-position: center top ;
 	background-attachment: fixed;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.bar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 640px;
+height: 45px;
+margin-left: 106px;
+margin-top: 318px;
 }
 
 h3 {
 	font-family: var(--font);
 	font-size: 45px;
 	color: var(--color-retro);
-	margin-top: 315px;
-	margin-left: 370px;
+}
+
+h6 {
+		font-family: var(--font);
+	font-size: 14px;
+	color: var(--color-retro);
+	margin-right: 20px;
 }
 
 .canvas {
 	display: flex;
 	justify-content: center;
-	margin-top: -18px;
+	margin-top:  24px;
 	margin-left: 106px;
 }
 
