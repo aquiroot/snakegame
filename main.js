@@ -163,5 +163,5 @@ window.onload = () => {
 	alimento.x = alimentoPosition.x;
 	alimento.y = alimentoPosition.y;
 	controls.start = true;
-	//start();
+	start();
 };
