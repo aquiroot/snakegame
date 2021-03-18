@@ -26,6 +26,9 @@ const boardHeight = 370;
 // TODO: Cambiar speed segun dificultad elegida
 let speed = 10;
 
+// variable de crecimiento para dar dificultad
+let sizeV = 1;
+
 let score = 0;
 
 let keyPress;
@@ -57,7 +60,7 @@ const draw = () => {
 		drawFigures('#1f3000', x, y);
 	}
 	const alimento = controls.alimento;
-	drawFigures('#1f3000', alimento.x, alimento.y);
+	drawFigures('black', alimento.x, alimento.y);
 };
 
 const drawFigures = (color, x, y) => {
@@ -92,9 +95,10 @@ const start = () => {
 		}
 
 		if (head.x === controls.alimento.x && head.y === controls.alimento.y) {
-			controls.crecimiento += 10;
+			controls.crecimiento += sizeV;
 			eaten();
 			score++;
+			sizeV++;
 			scoreScreen.innerHTML = score * speed;
 		}
 
@@ -121,8 +125,8 @@ const collision = () => {
 	if (
 		head.x < -1 ||
 		head.y < -1 ||
-		head.x > boardWidth / 10 ||
-		head.y > boardHeight / 10
+		head.x > boardWidth / speed ||
+		head.y > boardHeight / speed
 	) {
 		return true;
 	}
