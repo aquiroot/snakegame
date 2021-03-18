@@ -19,18 +19,20 @@ const direction = {
 };
 
 // Variables del tablero
-const boardWidth = 636;
-const boardHeight = 368;
+const boardWidth = 640;
+const boardHeight = 370;
 
 // TODO: Cambiar speed segun dificultad elegida
-const speed = 10;
+let speed = 10;
+
+let score = 0;
 
 let keyPress;
 const intervalo = 80;
 
 const controls = {
 	direction: { x: 1, y: 0 },
-	serpiente: [{ x: 318, y: 184 }],
+	serpiente: [{ x: 310, y: 180 }],
 	alimento: { x: 100, y: 100 },
 	start: false,
 };
@@ -40,14 +42,14 @@ document.onkeydown = (ev) => {
 	let keyPress = direction[ev.key];
 	const [x, y] = keyPress;
 	if (-x !== controls.direction.x && -y !== controls.direction.y) {
-		controls.direction.x = x * speed;
-		controls.direction.y = y * speed;
+		controls.direction.x = x;
+		controls.direction.y = y;
 	}
 };
 
 // Dibujar objetos
 const draw = () => {
-	boardCtx.clearRect(0, 0, 636, 368);
+	boardCtx.clearRect(0, 0, 640, 370);
 	const head = controls.serpiente[0];
 	const alimento = controls.alimento;
 	drawFigures('#18181a', head.x, head.y);
@@ -56,7 +58,7 @@ const draw = () => {
 
 const drawFigures = (color, x, y) => {
 	boardCtx.fillStyle = color;
-	boardCtx.fillRect(x, y, 10, 10);
+	boardCtx.fillRect(x * speed, y * speed, 10, 10);
 };
 
 // funcion start
@@ -66,15 +68,26 @@ const start = () => {
 	let dy = controls.direction.y;
 	head.x += dx;
 	head.y += dy;
+	if (head.x === controls.alimento.x && head.y === controls.alimento.y) {
+		eaten();
+		score++;
+		console.log(score * speed);
+	}
 	requestAnimationFrame(draw);
 	setTimeout(start, intervalo);
+};
+
+const eaten = () => {
+	let alimentoPosition = randomPosition();
+	controls.alimento.x = alimentoPosition.x;
+	controls.alimento.y = alimentoPosition.y;
 };
 
 const randomPosition = () => {
 	let d = Object.values(direction);
 	return {
-		x: parseInt(Math.random() * boardWidth),
-		y: parseInt(Math.random() * boardHeight),
+		x: parseInt(Math.random() * (boardWidth / speed)),
+		y: parseInt(Math.random() * (boardHeight / speed)),
 		d: d[parseInt(Math.random() * 11)],
 	};
 };
@@ -84,14 +97,17 @@ const randomPosition = () => {
  *  TODO: iniciar con un boton start que coincida con un boton del nokia
  */
 window.onload = () => {
-	let position = randomPosition();
-	let alimentoPosition = randomPosition();
+	position = randomPosition();
 	let head = controls.serpiente[0];
+	// posicion y direccion random de la serpiente
 	head.x = position.x;
 	head.y = position.y;
-	controls.direction.x = position.d[0] * speed;
-	controls.direction.y = position.d[1] * speed;
-	controls.alimento.x = alimentoPosition.x;
-	controls.alimento.y = alimentoPosition.y;
+	controls.direction.x = position.d[0];
+	controls.direction.y = position.d[1];
+	alimentoPosition = randomPosition();
+	// posicion random de alimento
+	let alimento = controls.alimento;
+	alimento.x = alimentoPosition.x;
+	alimento.y = alimentoPosition.y;
 	start();
 };

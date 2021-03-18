@@ -1,7 +1,7 @@
 :root {
 	--color-retro: black;
 	--color-board-background: #a1b469;
-	--color-background: #0b0e0d;
+	--color-background: #030401;
 }
 
 body {
@@ -28,3 +28,8 @@ body {
 	background-color: var(--color-board-background);
 }
 */
+
+.game__board {
+	border: solid 4px var(--color-retro);
+	background-color: var(--color-board-background);
+}
