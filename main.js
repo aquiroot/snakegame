@@ -67,56 +67,72 @@ const drawFigures = (color, x, y) => {
 	boardCtx.fillRect(x * speed, y * speed, 10, 10);
 };
 
-// funcion start
+// funcion que maneja toda la logica de objetos
 const start = () => {
-	let tail = {};
-	Object.assign(tail, controls.serpiente[controls.serpiente.length - 1]);
-	const head = controls.serpiente[0];
-	let dx = controls.direction.x;
-	let dy = controls.direction.y;
-	let size = controls.serpiente.length - 1;
-	for (let idx = size; idx > -1; idx--) {
-		let head = controls.serpiente[idx];
-		if (idx === 0) {
-			head.x += dx;
-			head.y += dy;
-		} else {
-			head.x = controls.serpiente[idx - 1].x;
-			head.y = controls.serpiente[idx - 1].y;
+	if (controls.start) {
+		let tail = {};
+		Object.assign(tail, controls.serpiente[controls.serpiente.length - 1]);
+		const head = controls.serpiente[0];
+		let dx = controls.direction.x;
+		let dy = controls.direction.y;
+		let size = controls.serpiente.length - 1;
+		for (let idx = size; idx > -1; idx--) {
+			let head = controls.serpiente[idx];
+			if (idx === 0) {
+				head.x += dx;
+				head.y += dy;
+			} else {
+				head.x = controls.serpiente[idx - 1].x;
+				head.y = controls.serpiente[idx - 1].y;
+			}
 		}
-	}
 
-	if (
-		head.x < -1 ||
-		head.y < -1 ||
-		head.x > boardWidth / 10 ||
-		head.y > boardHeight / 10
-	) {
-		window.alert('ha perdido, puntaje: ' + score * speed);
-		location.reload();
-		return;
-	}
+		if (collision()) {
+			controls.start = false;
+			window.alert('ha perdido, puntaje: ' + score * speed);
+			location.reload();
+		}
 
-	if (head.x === controls.alimento.x && head.y === controls.alimento.y) {
-		controls.crecimiento += 1;
-		eaten();
-		score++;
-		scoreScreen.innerHTML = score * speed;
-	}
+		if (head.x === controls.alimento.x && head.y === controls.alimento.y) {
+			controls.crecimiento += 10;
+			eaten();
+			score++;
+			scoreScreen.innerHTML = score * speed;
+		}
 
-	if (controls.crecimiento > 0) {
-		controls.serpiente.push(tail);
-		controls.crecimiento = 0;
+		if (controls.crecimiento > 0) {
+			controls.serpiente.push(tail);
+			controls.crecimiento -= 1;
+		}
+		//console.log(controls.serpiente);
+		requestAnimationFrame(draw);
+		setTimeout(start, intervalo);
 	}
-	//console.log(controls.serpiente);
-	requestAnimationFrame(draw);
-	setTimeout(start, intervalo);
 };
 
 const eaten = () => {
 	let alimentoPosition = randomPosition();
 	controls.alimento.x = alimentoPosition.x;
 	controls.alimento.y = alimentoPosition.y;
+};
+
+const collision = () => {
+	const head = controls.serpiente[0];
+	if (
+		head.x < -1 ||
+		head.y < -1 ||
+		head.x > boardWidth / 10 ||
+		head.y > boardHeight / 10
+	) {
+		return true;
+	}
+
+	for (let idx = 1; idx < controls.serpiente.length; idx++) {
+		let part = controls.serpiente[idx];
+		if (part.x === head.x && part.y === head.y) {
+			return true;
+		}
+	}
 };
 
 const randomPosition = () => {
@@ -145,5 +161,6 @@ window.onload = () => {
 	let alimento = controls.alimento;
 	alimento.x = alimentoPosition.x;
 	alimento.y = alimentoPosition.y;
+	controls.start = true;
 	start();
 };
