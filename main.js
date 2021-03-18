@@ -1,6 +1,7 @@
 // configuracion de canvas
 const board = document.querySelector('canvas');
 const boardCtx = board.getContext('2d');
+const scoreScreen = document.querySelector('h3');
 
 // variables
 const direction = {
@@ -52,8 +53,8 @@ const draw = () => {
 	boardCtx.clearRect(0, 0, 640, 370);
 	const head = controls.serpiente[0];
 	const alimento = controls.alimento;
-	drawFigures('#18181a', head.x, head.y);
-	drawFigures('red', alimento.x, alimento.y);
+	drawFigures('black', head.x, head.y);
+	drawFigures('#1f3000', alimento.x, alimento.y);
 };
 
 const drawFigures = (color, x, y) => {
@@ -68,10 +69,20 @@ const start = () => {
 	let dy = controls.direction.y;
 	head.x += dx;
 	head.y += dy;
+	if (
+		head.x < -1 ||
+		head.y < -1 ||
+		head.x > boardWidth / 10 ||
+		head.y > boardHeight / 10
+	) {
+		window.alert('looooser!!!');
+		location.reload();
+	}
+
 	if (head.x === controls.alimento.x && head.y === controls.alimento.y) {
 		eaten();
 		score++;
-		console.log(score * speed);
+		scoreScreen.innerHTML = score * speed;
 	}
 	requestAnimationFrame(draw);
 	setTimeout(start, intervalo);
