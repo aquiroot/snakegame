@@ -1,9 +1,9 @@
-// configuracion de canvas
+// configuracion de pantalla
 const board = document.querySelector('canvas');
 const boardCtx = board.getContext('2d');
 const scoreScreen = document.querySelector('h3');
 
-// variables
+// variables de movimiento
 const direction = {
 	s: [0, 1],
 	w: [0, -1],
@@ -52,13 +52,11 @@ document.onkeydown = (ev) => {
 // Dibujar objetos
 const draw = () => {
 	boardCtx.clearRect(0, 0, 640, 370);
-	//const head = controls.serpiente[0];
 	for (let idx = 0; idx < controls.serpiente.length; idx++) {
 		const { x, y } = controls.serpiente[idx];
 		drawFigures('#1f3000', x, y);
 	}
 	const alimento = controls.alimento;
-	//drawFigures('black', head.x, head.y);
 	drawFigures('#1f3000', alimento.x, alimento.y);
 };
 
@@ -110,12 +108,14 @@ const start = () => {
 	}
 };
 
+// funcion que da un nuevo alimento cuando se come el anterior
 const eaten = () => {
 	let alimentoPosition = randomPosition();
 	controls.alimento.x = alimentoPosition.x;
 	controls.alimento.y = alimentoPosition.y;
 };
 
+// funcion que maneja las colisiones contra bordes y si misma
 const collision = () => {
 	const head = controls.serpiente[0];
 	if (
@@ -135,6 +135,7 @@ const collision = () => {
 	}
 };
 
+// da posiciones y direcciones aleatorias a los objetos
 const randomPosition = () => {
 	let d = Object.values(direction);
 	return {
@@ -162,5 +163,5 @@ window.onload = () => {
 	alimento.x = alimentoPosition.x;
 	alimento.y = alimentoPosition.y;
 	controls.start = true;
-	start();
+	//start();
 };
