@@ -3,6 +3,12 @@ const board = document.querySelector('canvas');
 const boardCtx = board.getContext('2d');
 const scoreScreen = document.querySelector('h3');
 
+// teclas
+const teclaArriba = document.getElementById('arriba');
+const teclaIzquierda = document.getElementById('izquierda');
+const teclaAbajo = document.getElementById('abajo');
+const teclaDerecha = document.getElementById('derecha');
+
 // variables de movimiento
 const direction = {
 	s: [0, 1],
@@ -19,8 +25,12 @@ const direction = {
 	ArrowLeft: [-1, 0],
 };
 
-// Variables del tablero
-const boardWidth = 640;
+// Variables del tablero desktop
+//const boardWidth = 640;
+//const boardHeight = 370;
+
+// variables tablero mobile
+const boardWidth = 370;
 const boardHeight = 370;
 
 // TODO: Cambiar speed segun dificultad elegida
@@ -31,6 +41,7 @@ let sizeV = 1;
 
 let score = 0;
 
+// TODO: keypress es necesario fuera de la funcion?
 let keyPress;
 const intervalo = 80;
 
@@ -42,7 +53,7 @@ const controls = {
 	crecimiento: 0,
 };
 
-// Obtener pulsaciones de teclas
+// mover por teclado
 document.onkeydown = (ev) => {
 	let keyPress = direction[ev.key];
 	const [x, y] = keyPress;
@@ -52,9 +63,30 @@ document.onkeydown = (ev) => {
 	}
 };
 
+// mover segun tactil
+teclaArriba.addEventListener('click', () => {
+	controls.direction.x = 0;
+	controls.direction.y = -1;
+});
+
+teclaAbajo.addEventListener('click', () => {
+	controls.direction.x = 0;
+	controls.direction.y = 1;
+});
+
+teclaIzquierda.addEventListener('click', () => {
+	controls.direction.x = -1;
+	controls.direction.y = 0;
+});
+
+teclaDerecha.addEventListener('click', () => {
+	controls.direction.x = 1;
+	controls.direction.y = 0;
+});
+
 // Dibujar objetos
 const draw = () => {
-	boardCtx.clearRect(0, 0, 640, 370);
+	boardCtx.clearRect(0, 0, boardWidth, boardHeight);
 	for (let idx = 0; idx < controls.serpiente.length; idx++) {
 		const { x, y } = controls.serpiente[idx];
 		drawFigures('#1f3000', x, y);
