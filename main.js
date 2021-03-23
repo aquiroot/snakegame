@@ -25,13 +25,30 @@ const direction = {
 	ArrowLeft: [-1, 0],
 };
 
-// Variables del tablero desktop
-//const boardWidth = 640;
-//const boardHeight = 370;
-
-// variables tablero mobile
-const boardWidth = 370;
+// Variables del tablero, width cambia segun dispositivo
+let boardWidth = 640;
 const boardHeight = 370;
+
+function isMobile() {
+	return (
+		navigator.userAgent.match(/Android/i) ||
+		navigator.userAgent.match(/iPhone/i) ||
+		navigator.userAgent.match(/iPod/i) ||
+		navigator.userAgent.match(/iPad/i)
+	);
+}
+
+if (isMobile()) {
+	board.removeAttribute('width');
+	board.setAttribute('width', '370');
+	boardWidth = 370;
+	console.log('playing in mobile');
+} else {
+	board.removeAttribute('width');
+	board.setAttribute('width', '640');
+	boardWidth = 640;
+	console.log('playing in desktop');
+}
 
 // TODO: Cambiar speed segun dificultad elegida
 let speed = 10;
@@ -41,7 +58,7 @@ let sizeV = 1;
 
 let score = 0;
 
-// TODO: keypress es necesario fuera de la funcion?
+// FIXME: keypress es necesario fuera de la funcion?
 let keyPress;
 const intervalo = 80;
 
