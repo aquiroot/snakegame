@@ -3,7 +3,7 @@ const board = document.querySelector('canvas');
 const boardCtx = board.getContext('2d');
 const scoreScreen = document.querySelector('h3');
 
-// teclas
+// teclas en pantalla para mobiles
 const teclaArriba = document.getElementById('arriba');
 const teclaIzquierda = document.getElementById('izquierda');
 const teclaAbajo = document.getElementById('abajo');
